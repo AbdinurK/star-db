@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom"
+import App from "./components/app/app";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+
+// import SwapiService from "./services/swapi-service";
+//
+// const swapi = new SwapiService();
+// swapi.getAllPeople()
+//     .then((people) => {
+//         people.forEach((p) => {
+//             console.log(p.name)
+//         })
+//     })
+//     .catch((err) => {
+//         console.error('error', err)
+//     });
+//
+// swapi.getPerson(1)
+//     .then((p) => {
+//         console.log(p.name)
+//     })
+//     .catch((err) => {
+//         console.error('error', err)
+//     });
+
