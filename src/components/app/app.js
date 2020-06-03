@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Header from "../header/header";
 import SwapiService from "../../services/swapi-service";
 import ErrorBoundary from "../error-boundary";
-import ItemDetails, {Record} from "../item-details";
-import { Row } from "../row";
 import { PersonList, PlanetList, StarshipList } from "../sw-components/item-lists";
+import { SwapiServiceProvider } from "../swapi-service-context/swapi-service-context";
 import "./app.css"
 
 export default class App extends Component {
@@ -33,12 +32,14 @@ export default class App extends Component {
     render() {
         return (
             <ErrorBoundary>
-                <div className="stardb-app">
-                    <Header/>
-                    <PersonList/>
-                    <PlanetList/>
-                    <StarshipList/>
-                </div>
+                <SwapiServiceProvider value={this.swapiService}>
+                    <div className="stardb-app">
+                        <Header/>
+                        <PersonList/>
+                        <PlanetList/>
+                        <StarshipList/>
+                    </div>
+                </SwapiServiceProvider>
             </ErrorBoundary>
         )
     }
