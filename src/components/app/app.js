@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Header from "../header/header";
-import RandomPlanet from "../random-planet/random-planet";
-import PeoplePage from "../people-page/people-page";
-import "./app.css"
-import ErrorIndicator from "../error-indicator/error-indicator";
-import ItemList from "../item-list/item-list";
-import PersonDetails from "../person-details/person-details";
 import SwapiService from "../../services/swapi-service";
+import ErrorBoundary from "../error-boundary";
+import ItemDetails, {Record} from "../item-details";
+import { Row } from "../row";
+import { PersonList, PlanetList, StarshipList } from "../sw-components/item-lists";
+import "./app.css"
 
 export default class App extends Component {
 
@@ -32,34 +31,15 @@ export default class App extends Component {
     }
 
     render() {
-        if (this.state.hasError) {
-            return <ErrorIndicator/>
-        }
-        const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null;
         return (
-            <div className="stardb-app">
-                <Header/>
-                { planet }
-                <div className="row mb-2 button-row">
-                    <button
-                        className="toggle-planet btn btn-warning btn-lg"
-                        onClick={this.toggleRandomPlanet}>
-                        Toggle Random Planet
-                    </button>
+            <ErrorBoundary>
+                <div className="stardb-app">
+                    <Header/>
+                    <PersonList/>
+                    <PlanetList/>
+                    <StarshipList/>
                 </div>
-                <PeoplePage />
-                <div className="row mb-2">
-                    <div className="col-md-6">
-                        <ItemList
-                            onItemSelected={this.onPersonSelected}
-                            getData={this.swapiService.getAllPlanets}
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails personId={this.state.selectedPerson}/>
-                    </div>
-                </div>
-            </div>
+            </ErrorBoundary>
         )
     }
 };
