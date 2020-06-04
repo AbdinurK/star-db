@@ -10,25 +10,6 @@ export default class App extends Component {
 
     swapiService = new SwapiService();
 
-    state = {
-        showRandomPlanet: true,
-        hasError: false
-    };
-
-    toggleRandomPlanet = () => {
-        this.setState((state) => {
-            return {
-                showRandomPlanet: !state.showRandomPlanet
-            }
-        });
-    };
-
-    componentDidCatch(error, errorInfo) {
-        this.setState({
-            hasError: true
-        })
-    }
-
     render() {
         return (
             <ErrorBoundary>

@@ -1,69 +1,22 @@
-import React, { Component } from "react";
-import "./person-details.css";
-import SwapiService from "../../services/swapi-service";
+import React from "react";
+import ItemDetails, { Record } from "../item-details";
+import { withSwapiService } from "../hoc-helper/with-swapi-service"
 
-export default class PersonDetails extends Component {
 
-    swapiService = new SwapiService();
+const PersonDetails = (props) => {
+    return (
+        <ItemDetails {...props}>
+            <Record field="gender" label="Gender"/>
+            <Record field="gender" label="Gender"/>
+        </ItemDetails>
+    )
+};
 
-    state = {
-        person: null
-    };
-
-    componentDidMount() {
-        this.updatePerson();
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPerson,
+        getImageUrl: swapiService.getPersonImage
     }
+};
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.personId !== prevProps.personId) {
-            this.updatePerson()
-        }
-    }
-
-
-    updatePerson() {
-        const { personId } = this.props;
-        if (!personId) {
-            return;
-        }
-        this.swapiService
-            .getPerson(personId)
-            .then((person) => {
-                this.setState({
-                    person
-                })
-            })
-    }
-
-    render() {
-        if (!this.state.person) {
-            return <span>Select a person from list</span>;
-        }
-        const { id, name, gender, birthYear, eyeColor } = this.state.person;
-        console.log(id);
-        return (
-            <div className="person-details card">
-                <img className="person-image"
-                     src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-                     alt="sorry"/>
-                <div className="card-body" key={id}>
-                    <h4>{ name }</h4>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <span className="term">Gender</span>
-                            <span>{ gender }</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Birth Year</span>
-                            <span>{ birthYear }</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Eye Color</span>
-                            <span>{ eyeColor }</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        )
-    }
-}
+export default withSwapiService(PersonDetails, mapMethodsToProps)
