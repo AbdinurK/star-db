@@ -8,6 +8,10 @@ import "./app.css"
 
 export default class App extends Component {
 
+    state = {
+
+    }
+
     swapiService = new SwapiService();
 
     render() {
